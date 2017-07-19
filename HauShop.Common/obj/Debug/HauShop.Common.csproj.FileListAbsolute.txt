@@ -1,0 +1,17 @@
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\bin\Debug\HauShop.Common.dll
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\bin\Debug\HauShop.Common.pdb
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\bin\Debug\EPPlus.dll
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\bin\Debug\HtmlRenderer.dll
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\bin\Debug\HtmlRenderer.PdfSharp.dll
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\bin\Debug\PdfSharp.Charting.dll
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\bin\Debug\PdfSharp.dll
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\bin\Debug\EPPlus.xml
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\bin\Debug\HtmlRenderer.pdb
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\bin\Debug\HtmlRenderer.PdfSharp.pdb
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\bin\Debug\PdfSharp.xml
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\bin\Debug\PdfSharp.Charting.xml
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\bin\Debug\de\PdfSharp.resources.dll
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\bin\Debug\de\PdfSharp.Charting.resources.dll
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\obj\Debug\HauShop.Common.dll
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\obj\Debug\HauShop.Common.pdb
+E:\WEB MVC\HauShop\HauShop\HauShop.Common\obj\Debug\HauShop.Common.csprojResolveAssemblyReference.cache

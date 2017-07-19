@@ -1,0 +1,172 @@
+﻿ <!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Thêm mới sản phẩm
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a href="#">Sản phẩm</a></li>
+        <li><a ui-sref="product_categories">sản phẩm</a></li>
+        <li class="active">Thêm mới</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <!-- Horizontal Form -->
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Thêm mới</h3>
+        </div><!-- /.box-header -->
+        <!-- form start -->
+        <form  novalidate name="frmAddproduct" role="form" ng-submit="AddProduct()">
+            <!-- /.box-body -->
+            <!-- /.box-body -->
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="inputEmail3">Tên sản phẩm</label>
+                            <input type="text" class="form-control" ng-change="GetSeoTitle()" ng-maxlength="250" required name="name" ng-model="product.Name">
+                            <span ng-show="frmAddproduct.name.$invalid" class="has-error">Phải nhập tên sản phẩm</span>
+                            <span ng-show="frmAddproduct.name.$error.maxlength" class="has-error">Tên sản phẩm chỉ được 250 ký tự</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3">Tiêu đề seo</label>
+                            <input type="text" class="form-control" required name="alias" ng-maxlength="250" ng-model="product.Alias">
+                            <span ng-show="frmAddproduct.alias.$invalid" class="has-error">Phải nhập tiêu đề seo</span>
+                            <span ng-show="frmAddproduct.alias.$error.maxlength" class="has-error">Tiêu đề seo chỉ được 250 ký tự</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3">Danh mục</label>
+                            <!--<select name="categoryID" class="form-control" required ng-model="product.CategoryID" ng-options="option.ID as option.Name for option in flatFolders">
+                        <option value="">Chọn danh mục</option>
+                    </select>-->
+
+                            <ui-select ng-model="product.CategoryID" name="parentId" theme="bootstrap" style="min-width: 300px;">
+                                <ui-select-match placeholder="Vui lòng chọn danh mục">{{$select.selected.Name}}</ui-select-match>
+                                <ui-select-choices repeat="item.ID as item in flatFolders | filter: $select.search">
+                                    <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                    <!--<small>
+                                Tên danh mục: {{item.Name}}
+                            </small>-->
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <span ng-show="frmAddproduct.categoryID.$invalid" class="has-error">Phải chọn danh mục</span>
+                            <input type="hidden" ng-model="product.CategoryID" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3">Hình ảnh</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="image" ng-maxlength="500" ng-model="product.Image">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" ng-click="chooseImage()">Chọn ảnh</button>
+                                </span>
+                            </div>
+                            <span ng-show="frmAddproduct.image.$error.maxlength" class="has-error">Images chỉ được 500 ký tự</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3">Xem trước</label>
+                            <img ng-if="product.Image  !== null" height="100" src="{{product.Image}}" />
+                            <img ng-if="product.Image  === null" height="100" src="/Assets/admin/img/no-Image.png" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3">Thêm ảnh</label>
+                            <ul class="files">
+                                <li ng-repeat="img in moreImages">
+                                    <img ng-src="{{img}}" width="100" />
+                                    <div class="delete" ng-click="deleteFile(img)">&times;</div>
+                                </li>
+                            </ul>
+                            <button class="btn btn-default" type="button" ng-click="chooseMoreImage()">Chọn ảnh</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="inputPassword3">Bảo hành</label>
+                            <input type="number" class="form-control" name="warranty" ng-model="product.Warranty">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3">Giá nhập ({{product.OriginalPrice | number : fractionSize }} vnđ)</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" required name="originalPrice" ng-model="product.OriginalPrice">
+                                <span class="input-group-addon">VNĐ</span>
+                            </div>
+                            <span ng-show="frmAddproduct.originalPrice.$invalid" class="has-error">Phải nhập giá nhập</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3">Giá bán ({{product.Price | number : fractionSize }} vnđ)</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" required name="price" ng-model="product.Price">
+                                <span class="input-group-addon">VNĐ</span>
+                            </div>
+                            <span ng-show="frmAddproduct.price.$invalid" class="has-error">Phải nhập giá</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3">Giá khuyến mãi ({{product.PromotionPrice | number : fractionSize }} vnđ) <br /> Phần trăm giảm: {{(product.Price - product.PromotionPrice) / product.Price * 100 | number:1 }} % </label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="promotionPrice" ng-model="product.PromotionPrice">
+                                <span class="input-group-addon">VNĐ</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3">Số lượng</label>
+                            <input type="number" class="form-control" name="quantity" ng-model="product.Quantity">
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="inputPassword3">Tags</label>
+                            <input type="text" class="form-control" name="tags" ng-model="product.Tags">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3">Meta keyword</label>
+                            <input type="text" class="form-control" name="metakeyword" ng-maxlength="250" ng-model="product.MetaKeyword">
+                            <span ng-show="frmAddproduct.metakeyword.$error.maxlength" class="has-error">keyword chỉ được 250 ký tự</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3">Meta Description</label>
+                            <textarea class="form-control" name="metadescription" ng-maxlength="250" ng-model="product.MetaDescription"> </textarea>
+                            <span ng-show="frmAddproduct.metadescription.$error.maxlength" class="has-error">keyword chỉ được 250 ký tự</span>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="status" ng-model="product.Status" ng-checked="product.Status" />Kích hoạt
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="homeflag" ng-model="product.HomeFlag" ng-checked="product.HomeFlag" />Hiển thị trang chủ
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="hotflag" ng-model="product.HotFlag" ng-checked="product.HotFlag" />Sản phẩm hot
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="inputPassword3">Mô tả ngắn</label>
+                    <textarea type="text" class="form-control" ng-maxlength="250" name="description" ng-model="product.Description"> </textarea>
+                    <span ng-show="frmAddproduct.description.$error.maxlength" class="has-error">Mô tả ngắn chỉ được 250 ký tự</span>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3">Mô tả sản phẩm</label>
+                    <textarea class="form-control" name="html" ckeditor="ckeditorOptions" ng-model="product.Content"> </textarea>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button ui-sref="products" class="btn btn-default">Cancel</button>
+                <button type="submit" ng-disabled="frmAddproduct.$invalid" class="btn btn-success pull-right">Lưu</button>
+            </div><!-- /.box-footer -->
+        </form>
+    </div><!-- /.box -->
+</section><!-- /.content -->

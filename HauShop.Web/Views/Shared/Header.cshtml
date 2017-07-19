@@ -1,0 +1,72 @@
+﻿@model HauShop.Web.Models.HeaderViewModel
+@using Microsoft.AspNet.Identity.EntityFramework
+<div class="top-header">
+    <div class="container">
+        <div class="top-header-left">
+            @if (Model.Pages.Count() > 0)
+            {
+                foreach (var page in Model.Pages)
+                {
+                    <ul class="support">
+                        <li><a href="#"><label></label></a></li>
+                        <li><a href="/trang/@(page.Alias).html"><span class="live"> @page.Name</span></a></li>
+                    </ul>
+                }
+            }
+            <ul class="support">
+                <li><a href="#"><label></label></a></li>
+                <li><a href="/lien-he.html"><span class="live">Liên hệ</span></a></li>
+            </ul>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="top-header-right">
+
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<div class="bottom-header">
+    <div class="container">
+        <div class="header-bottom-left">
+            @if (Model.Logos.Count() > 0)
+            {
+                <div class="logo">
+                    @foreach (var item in Model.Logos)
+                    {
+                        <a href="/"><img src="@item.Image" alt="@item.Name" /></a>
+                    }
+                </div>
+            }
+            <div class="search">
+                <form method="get" action="/tim-kiem.html">
+                    <input type="text" id="txtKeyword" name="keyword" placeholder="từ khóa">
+                    <input type="submit" value="Tìm kiếm" id="btnSearch">
+                </form>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="header-bottom-right">
+            @if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("Logout", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <ul class="login">
+                        <li><a href="/tai-khoan.html"><span> </span>Xin chào: @User.Identity.Name</a></li>
+                        <li><input type="submit" value="Thoát" /></li>
+                    </ul>
+                }
+            }
+            else
+            {
+                <ul class="login">
+                    <li><a href="/dang-nhap.html"><span> </span>Đăng Nhập</a></li> |
+                    <li><a href="/dang-ky.html">Đăng Ký</a></li>
+                </ul>
+            }
+            <div class="cart"><a href="/gio-hang.html"><span> </span>Giỏ Hàng</a></div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>

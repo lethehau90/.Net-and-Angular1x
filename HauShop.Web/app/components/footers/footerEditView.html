@@ -1,0 +1,46 @@
+﻿ <!-- Content Header (Footer header) -->
+<section class="content-header">
+    <h1>
+        Cập nhật mới footer
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a href="#">Trang</a></li>
+        <li><a ui-sref="footer_categories">footer</a></li>
+        <li class="active">Cập nhật mới</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <!-- Horizontal Form -->
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Cập nhật mới</h3>
+        </div><!-- /.box-header -->
+        <!-- form start -->
+        <form class="form-horizontal" novalidate name="frmEditfooter" role="form" ng-submit="EditFooter()">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">ID footer</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-maxlength="250" disabled required name="id" ng-model="footer.ID">
+                        <span ng-show="frmEditfooter.name.$invalid" class="has-error">Phải nhập ID footer</span>
+                        <span ng-show="frmEditfooter.name.$error.maxlength" class="has-error">Tên footer chỉ được 250 ký tự</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Mô tả footer</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" required name="content" ckeditor="ckeditorOptions" ng-model="footer.Content"> </textarea>
+                        <span ng-show="frmEditfooter.content.$invalid" class="has-error">Phải nhập mô tả footer</span>
+                    </div>
+                </div>
+            </div><!-- /.box-body -->
+            <div class="box-footer">
+                <button ui-sref="footer" class="btn btn-default">Cancel</button>
+                <button type="submit" ng-disabled="frmEditfooter.$invalid" class="btn btn-success pull-right">Lưu</button>
+            </div><!-- /.box-footer -->
+        </form>
+    </div><!-- /.box -->
+</section><!-- /.content -->
