@@ -57,7 +57,7 @@ namespace HauShop.Common
             var port = 587;
             var fromEmail = "lethehau90@gmail.com";
             var password = "xxxx";
-            var fromName = "LACVIETCRM";
+            var fromName = "LVCRM";
 
             var smtpClient = new SmtpClient(host, port)
             {
