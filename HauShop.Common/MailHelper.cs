@@ -129,5 +129,18 @@ namespace HauShop.Common
             }
 
         }
+      
+      private bool CheckForInternetConnection()
+		{
+			try
+			{
+				System.Net.IPHostEntry hostEntry = System.Net.Dns.GetHostEntry("www.google.com");
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+		}
     }
 }
