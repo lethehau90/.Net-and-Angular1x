@@ -51,16 +51,13 @@ namespace HauShop.Common
             }
         }
       
-      
-      public static void sendmailFile(string toEmail, string cc, string bcc, string subject, string content, string attachmentFile, string strAttachment)
+      public static void sendmailFile(string toEmail, string cc, string bcc, string subject, string content, string strAttachment)
         {
             var host = "smtp.gmail.com";
             var port = 587;
             var fromEmail = "lethehau90@gmail.com";
             var password = "xxxx";
             var fromName = "LACVIETCRM";
-
-            string file = attachmentFile;
 
             var smtpClient = new SmtpClient(host, port)
             {
@@ -88,7 +85,7 @@ namespace HauShop.Common
                 mail.To.Add(new MailAddress(ToEMailId)); //adding multiple TO Email Id
             }
 
-            if(cc != "")
+            if (cc != "")
             {
                 string[] CCId = cc.Split(',');
 
@@ -107,8 +104,8 @@ namespace HauShop.Common
                     mail.Bcc.Add(new MailAddress(bccEmailId)); //Adding Multiple BCC email Id
                 }
             }
-                
-            if(strAttachment != "")
+
+            if (strAttachment != "")
             {
                 //Adding multiple BCC Addresses
                 foreach (string sAttachment in strAttachment.Split(",".ToCharArray()))
@@ -130,7 +127,7 @@ namespace HauShop.Common
                 Console.WriteLine("Exception caught in CreateMessageWithAttachment(): {0}",
                             ex.ToString());
             }
-            
+
         }
     }
 }
