@@ -50,5 +50,87 @@ namespace HauShop.Common
                 return false;
             }
         }
+      
+      
+      public static void sendmailFile(string toEmail, string cc, string bcc, string subject, string content, string attachmentFile, string strAttachment)
+        {
+            var host = "smtp.gmail.com";
+            var port = 587;
+            var fromEmail = "lethehau90@gmail.com";
+            var password = "xxxx";
+            var fromName = "LACVIETCRM";
+
+            string file = attachmentFile;
+
+            var smtpClient = new SmtpClient(host, port)
+            {
+                UseDefaultCredentials = false,
+                Credentials = new System.Net.NetworkCredential(fromEmail, password),
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                EnableSsl = true,
+                Timeout = 100000
+            };
+
+            var mail = new MailMessage
+            {
+                Body = content,
+                Subject = subject,
+                From = new MailAddress(fromEmail, fromName)
+            };
+
+            mail.BodyEncoding = mail.SubjectEncoding = System.Text.Encoding.UTF8;
+
+            if (toEmail == "") return;
+
+            string[] ToMuliId = toEmail.Split(',');
+            foreach (string ToEMailId in ToMuliId)
+            {
+                mail.To.Add(new MailAddress(ToEMailId)); //adding multiple TO Email Id
+            }
+
+            if(cc != "")
+            {
+                string[] CCId = cc.Split(',');
+
+                foreach (string CCEmail in CCId)
+                {
+                    mail.CC.Add(new MailAddress(CCEmail)); //Adding Multiple CC email Id
+                }
+            }
+
+            if (bcc != "")
+            {
+                string[] bccid = bcc.Split(',');
+
+                foreach (string bccEmailId in bccid)
+                {
+                    mail.Bcc.Add(new MailAddress(bccEmailId)); //Adding Multiple BCC email Id
+                }
+            }
+                
+            if(strAttachment != "")
+            {
+                //Adding multiple BCC Addresses
+                foreach (string sAttachment in strAttachment.Split(",".ToCharArray()))
+                {
+                    Attachment attachment = new Attachment(sAttachment);
+                    mail.Attachments.Add(attachment);
+                }
+            }
+
+            mail.IsBodyHtml = true;
+            mail.Priority = MailPriority.High;
+
+            try
+            {
+                smtpClient.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in CreateMessageWithAttachment(): {0}",
+                            ex.ToString());
+            }
+            
+        }
     }
 }
